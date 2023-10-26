@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+        <p> Hola,{{cliente.nombre}} </p>
+        <p> el pedido que tenia con este problema: {{cliente.problema}} </p>
+        
+        
+        {% if cliente.estado == "Aceptado"  %}
+        <p> se encuentra en el estado: {{cliente.estado}} paciencia xfa </p>
+        {% elif cliente.estado == "En produccion" %}
+        <p> se encuentra en el estado: {{cliente.estado}} Manos a la obra! </p>
+        {% else %}
+        <p> se encuentra en el estado: {{cliente.estado}} Ven a buscarlo no seas vago </p>
+        {% endif %}
+        <a href="{% url 'clientes:formCodigo'%}">Atras</a>
+        <a href="{% url 'clientes:home'%}">Inicio</a>
+
+
+
+</body>
+</html>
