@@ -1,18 +1,21 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'home.css' %}">
+    <title>Bienvenido a Soporte Técnico</title>
 </head>
+
 <body>
-
-
-                    <h1>Bienvenido a soporte tecnico</h1>
-      <a href="{% url 'clientes:formCodigo'%}">  Ver Estado de tu pedido</a>
-        <a href="{% url 'clientes:formCliente'%}">Pedir Arreglo</a>
-
-
-
+    <div class="container">
+      <img src="https://lh3.googleusercontent.com/p/AF1QipNSlLY8-293rGRxK6sfZi8UafAff5U0f3fDmc6s=w1080-h608-p-no-v0" alt="Mi Foto">
+        <h1>Bienvenido a Soporte Técnico</h1>
+        <p>¡Hola! Soy [Tu Nombre], tu técnico de soporte. Estoy aquí para ayudarte con cualquier problema técnico que puedas tener. 
+        Con más de [X] años de experiencia, estoy comprometido a brindarte soluciones efectivas y un servicio de calidad.</p>
+        <a href="{% url 'clientes:formCodigo'%}" class="btn btn-blue">Ver Estado de tu Pedido</a>
+        <a href="{% url 'clientes:formCliente'%}" class="btn btn-blue">Pedir Arreglo</a>
+    </div>
 </body>
 </html>

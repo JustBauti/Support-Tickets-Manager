@@ -15,6 +15,6 @@ class Clientedate(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         cliente = Cliente.objects.filter(id=obj.id)
-        send_mail('<Your subject>', '<Your message>','elbautisocial@gmail.com', [obj.correo])
         super().save_model(request, obj, form, change)
 
+    change_form_template = "./admin/Cliente/form_change.html"

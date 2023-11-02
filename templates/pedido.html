@@ -1,27 +1,27 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'pedido.css' %}">
+    <title>Detalle del Pedido</title>
 </head>
 <body>
-    
-        <p> Hola,{{cliente.nombre}} </p>
-        <p> el pedido que tenia con este problema: {{cliente.problema}} </p>
-        
-        
-        {% if cliente.estado == "Aceptado"  %}
-        <p> se encuentra en el estado: {{cliente.estado}} paciencia xfa </p>
-        {% elif cliente.estado == "En produccion" %}
-        <p> se encuentra en el estado: {{cliente.estado}} Manos a la obra! </p>
+    <div class="container">
+        <h2>Hola, {{nombre}}</h2>
+        <p>El pedido que tenías con este problema: {{problema}}</p>
+
+        {% if estado == "Aceptado" %}
+        <p>Se encuentra en el estado: Aceptado . </p>
+        {% elif estado == "En produccion" %}
+        <p>Se encuentra en el estado: En produccion.</p>
         {% else %}
-        <p> se encuentra en el estado: {{cliente.estado}} Ven a buscarlo no seas vago </p>
-        {% endif %}
-        <a href="{% url 'clientes:formCodigo'%}">Atras</a>
-        <a href="{% url 'clientes:home'%}">Inicio</a>
+        <p>Se encuentra en el estado: Listo para retirar.<p/>
+            {% endif %}
 
-
-
+        <a href="{% url 'clientes:formCodigo' %}">Atrás</a>
+        <a href="{% url 'clientes:home' %}">Inicio</a>
+    </div>
 </body>
 </html>

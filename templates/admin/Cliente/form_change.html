@@ -47,9 +47,7 @@
     <div id="content-main" class="col-12">
         <form {% if has_file_field %}enctype="multipart/form-data" {% endif %}action="{{ form_url }}" method="post" id="{{ opts.model_name }}_form" novalidate>
             {% csrf_token %}
-            {% block form_top %}
-            
-            {% endblock %}
+            {% block form_top %}{% endblock %}
 
             {% if errors %}
                 <div class="alert alert-danger">
@@ -75,6 +73,7 @@
                     <div class="col-12 col-lg-9">
                         <div class="card">
                             <div class="card-body">
+                                ACA VA EL PATRON DE BLOQUEO 
                                 {% get_changeform_template adminform as changeform_template %}
                                 {% include changeform_template %}
                             </div>

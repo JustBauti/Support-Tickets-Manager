@@ -14,7 +14,7 @@ class Cliente(models.Model):
     correo = models.EmailField("Correo electronico",max_length=254)
     problema = models.TextField("Problema con el dispositivo",max_length=1000)
     estado = models.CharField("Estado en el que se encuentra el pedido",choices=EstadoOpciones, max_length=20)
-    codigo = models.CharField("Codigo de seguimiento",default= 1, max_length=50)
+    codigo = models.CharField("Codigo de seguimiento",default="", max_length=50)
     
     def data(self):
         return {

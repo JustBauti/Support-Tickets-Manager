@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from .forms import FormCliente, FormCodigo
 from .models import Cliente
 from django.views.generic import View
@@ -40,19 +40,17 @@ class CodigoForm(View):
     
     def post(self,request,*args, **kwargs):
         if request.method == 'POST':
-            formulario = FormCodigo(request.POST)
-            
-            if formulario.is_valid() and Cliente.objects.filter(codigo = request.POST['codigo']) != '':
-                print(Cliente.objects.filter(codigo = request.POST['codigo'])[0].data())
+            c = get_object_or_404(Cliente, codigo=request.POST['codigo']).data()
+                       
+            if FormCodigo(request.POST).is_valid():
                 contexto = {
-                    "cliente":Cliente.objects.filter(codigo = request.POST['codigo'])[0].data(),
+                    "nombre":c['nombres'],
+                    "estado":c["estado"],
+                    "problema":c['problema'],
                     "1":'En produccion',
                     "2":'Listo para retirar',
                     "0":'Aceptado'
                 }
-                return render(request,"pedido.html",contexto)
-            
-            return render(request,'formCodigo.html', {})
-        
+                return render(request,"pedido.html",contexto)        
         return render(request,'formCodigo.html', {})
 
