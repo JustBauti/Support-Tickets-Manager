@@ -6,8 +6,8 @@ from django.views.generic import View
 from secrets import choice
 
 
-def HelloWorld(request):
-    return render(request,'home.html',{})
+def Patron(request):
+    return render(request,'index.html',{})
 
 class ClienteForm(View):
     def get(self,request,*args, **kwargs):
