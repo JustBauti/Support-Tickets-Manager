@@ -1,49 +1,14 @@
-body
-{
- text-align:center;
- width:100%;
- margin:0 auto;
- padding:0px;
- font-family:helvetica;
- background-color:#A9BCF5;
-}
+#id_nombre_apellido,#id_codigo,#id_telefono_contacto,#id_tecnico,#id_monto_total,#id_parte_pago{width: 80%;}#id_direccion {width: 90%;}#id_descripcion_problema, #id_observaciones{width: 90%;}#id_marca_equipo, #id_imei{ width: 70%;}#id_email,#id_equipo,#id_modelo_equipo,#id_numero_serie,#id_objectos{width: 90%;}#id_tipo_reparacion{display: flex;justify-content: center;}#id_tipo_reparacion>div{margin-right: 10px;}#id_fisuras,#id_pintura,#id_marcas,#id_golpes_graves,#id_manchas,#id_golpes_leves,#id_componentes_faltantes,#id_otros{width: 90%;}
 
-
-#wrapper
-{
- text-align:center;
- margin:0 auto;
- padding:0px;
- width:995px;
-}
-.pattern_container
-{
- margin-top:20px;
-}
-.pattern_container p
-{
- margin:0px;
- color:#0B2161;
- font-size:25px;
- font-weight:bold;
-}
-#pattern1,#pattern2
-{
- margin-left:340px;
-}
-#pattern1_container input[type="button"]
-{
- background:none;
- border:none;
- margin-top:10px;
- border:1px solid #0B2161;
- color:#0B2161;
- width:310px;
- margin-left:-5px;
- height:45px;
- font-size:17px;
-}
-#pattern2_container
-{
- display:none;
+ul.errorlist {
+    padding: 5px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    list-style: none;
+    width:70%;
 }

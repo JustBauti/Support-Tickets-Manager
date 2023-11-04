@@ -1,10 +1,12 @@
 {% extends "admin/base_site.html" %}
+{% load static %}
 {% load i18n admin_urls static admin_modify jazzmin %}
 {% get_jazzmin_settings request as jazzmin_settings %}
 
 {% block extrastyle %}
     {{ block.super }}
     <link rel="stylesheet" href="{% static 'vendor/select2/css/select2.min.css' %}">
+    <link rel="stylesheet" href="{% static 'form_change.css' %}">
 {% endblock %}
 
 {% block extrahead %}
@@ -55,6 +57,7 @@
                         {% trans "Please correct the error below." %}
                     {% else %}
                         {% trans "Please correct the errors below." %}
+                        {{ form.errors }}
                     {% endif %}
                 </div>
                 {% for error in adminform.form.non_field_errors %}
@@ -73,8 +76,134 @@
                     <div class="col-12 col-lg-9">
                         <div class="card">
                             <div class="card-body">
+                                <center><h5>DATOS DE RECEPCION</h5></center>
+                                <div class="form-row">
+                                    <div class="col">
+                                        <strong>Fecha entrada</strong><br>{{adminform.form.fecha_deja_prod}} {{adminform.form.fecha_deja_prod.errors}}
+                                    </div>
+                                    <div class="col">
+                                        <strong>{{adminform.form.estado.label}}</strong><br>{{adminform.form.estado}} {{adminform.form.estado.errors}}
+                                    </div>
+                                    <div class="col" >
+                                        <strong>{{adminform.form.codigo.label}}</strong><br>{{adminform.form.codigo}} {{adminform.form.codigo.errors}}
+                                    </div>
+                                  </div>
+                                  <div class="form-row">
+                                    <div class="col">
+                                        <strong>{{adminform.form.nombre_apellido.label}}</strong><br>{{adminform.form.nombre_apellido}} {{adminform.form.nombre_apellido.errors}}
+                                    </div>
+                                    <div class="col" >
+                                        <strong>{{adminform.form.telefono_contacto.label}}</strong><br>{{adminform.form.telefono_contacto}} {{adminform.form.telefono_contacto.errors}}
+                                    </div>
+                                  </div>
+                                  <div class="form-row">
+                                    <div class="col"  style="width: 120px">
+                                        <strong>{{adminform.form.direccion.label}}</strong><br>{{adminform.form.direccion}}  {{adminform.form.direccion.errors}}
+                                    </div>
+                                  </div>
+                                  <div class="form-row">
+                                    <div class="col">
+                                        <strong>{{adminform.form.email.label}}</strong><br>{{adminform.form.email}} {{adminform.form.email.errors}}
+                                    </div>
+                                    <div class="col">
+                                        <strong>{{adminform.form.equipo.label}}</strong><br>{{adminform.form.equipo}} {{adminform.form.equipo.errors}}
+                                    </div>
+                                    <div class="col">
+                                        <strong>{{adminform.form.marca_equipo.label}}</strong><br>{{adminform.form.marca_equipo}} {{adminform.form.marca_equipo.errors}}
+                                    </div>
+                                  </div>
+                                  <div class="form-row">
+                                    <div class="col">
+                                        <strong>{{adminform.form.modelo_equipo.label}}</strong><br>{{adminform.form.modelo_equipo}} {{adminform.form.modelo_equipo.errors}}
+                                    </div>
+                                    <div class="col">
+                                        <strong>{{adminform.form.numero_serie.label}}</strong><br>{{adminform.form.numero_serie}} {{adminform.form.numero_serie.errors}}
+                                    </div>
+                                    <div class="col">
+                                        <strong>{{adminform.form.imei.label}}</strong><br>{{adminform.form.imei}} {{adminform.form.imei.errors}}
+                                    </div>
+                                  </div>
+                                  <div class="form-row">
+                                    <div class="col">
+                                        <strong>{{adminform.form.descripcion_problema.label}}</strong><br>{{adminform.form.descripcion_problema}} {{adminform.form.descripcion_problema.errors}}
+                                    </div>
+                                  </div>
+                                    <center><h5>TIPO DE REPARACION</h5></center>
+                                <div class="form-row">
+                                    <div class="col">
+                                        <center>{{adminform.form.tipo_reparacion}}</center> {{adminform.form.tipo_reparacion.errors}}
+                                    </div>
+                                </div>
+                                <center>
+                                <table style="width:90%">
+                                    <tr>
+                                      <th>CARACTERISTICA</th>
+                                      <th>EN QUE PARTE DEL PRODUCTO</th>
+                                    </tr>
+                                    <tr>
+                                      <td><strong>{{adminform.form.fisuras.label}}</strong></td>
+                                      <td>{{adminform.form.fisuras}} {{adminform.form.fisuras.errors}}</td>
+                                    </tr>
+                                    <tr>
+                                      <td><strong>{{adminform.form.pintura.label}}</strong></td>
+                                      <td>{{adminform.form.pintura}} {{adminform.form.pintura.errors}}</td>
+                                    </tr>
+                                    <tr>
+                                      <td><strong>{{adminform.form.marcas.label}}</strong></td>
+                                      <td>{{adminform.form.marcas}} {{adminform.form.marcas.errors}}</td>
+                                    </tr>
+                                    <tr>
+                                      <td><strong>{{adminform.form.golpes_graves.label}}</strong></td>
+                                      <td>{{adminform.form.golpes_graves}} {{adminform.form.golpes_graves.errors}}</td>
+                                    </tr>
+                                    <tr>
+                                      <td><strong>{{adminform.form.manchas.label}}</strong></td>
+                                      <td>{{adminform.form.manchas}} {{adminform.form.manchas.errors}} </td>
+                                    </tr>
+                                    <tr>
+                                      <td><strong>{{adminform.form.golpes_leves.label}}</strong></td>
+                                      <td>{{adminform.form.golpes_leves}} {{adminform.form.golpes_leves.errors}}</td>
+                                    </tr>
+                                    <tr>
+                                      <td><strong>{{adminform.form.componentes_faltantes.label}}</strong></td>
+                                      <td>{{adminform.form.componentes_faltantes}} {{adminform.form.componentes_faltantes.errors}} </td>
+                                    </tr>
+                                    <tr>
+                                      <td><strong>{{adminform.form.otros.label}}</strong></td>
+                                      <td>{{adminform.form.otros}} {{adminform.form.otros.errors}} </td>
+                                    </tr>
+                                  </table>
+                                </center>
+                                <div class="form-row">
+                                    <div class="col">
+                                        <strong>{{adminform.form.observaciones.label}}</strong><br>{{adminform.form.observaciones}} {{adminform.form.observaciones.errors}}
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col">
+                                        <strong>{{adminform.form.objectos.label}}</strong><br>{{adminform.form.objectos}} {{adminform.form.objectos.errors}}
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col">
+                                        <strong>Fecha Salida (Aprox)</strong><br>{{adminform.form.fecha_terminacion_prod}} {{adminform.form.fecha_terminacion_prod.errors}}
+                                    </div>
+                                    <div class="col">
+                                        <strong>{{adminform.form.tecnico.label}}</strong><br>{{adminform.form.tecnico}} {{adminform.form.tecnico.errors}}
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col">
+                                        <strong>{{adminform.form.parte_pago.label}}</strong><br>{{adminform.form.parte_pago}}$ {{adminform.form.parte_pago.errors}}
+                                    </div>
+                                    <div class="col">
+                                        <strong>{{adminform.form.monto_total.label}}</strong><br>{{adminform.form.monto_total}}$<br>{{adminform.form.monto_total.errors}}
+                                    </div>
+                                </div>
+                                
+
+                               
                                 {% get_changeform_template adminform as changeform_template %}
-                                {% include changeform_template %}
                             </div>
                         </div>
                     </div>
@@ -89,8 +218,6 @@
                 <div class="col-12 col-lg-3">
                     <div id="jazzy-actions" class="{{ jazzmin_ui.actions_classes }}">
                         {% block submit_buttons_bottom %}
-                            VER Patron
-                            AGG Patron
                             {% submit_row %}
                             {% block object-tools %}
                                 {% if change %}

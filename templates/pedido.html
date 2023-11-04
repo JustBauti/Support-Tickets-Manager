@@ -9,19 +9,25 @@
 </head>
 <body>
     <div class="container">
-        <h2>Hola, {{nombre}}</h2>
-        <p>El pedido que tenías con este problema: {{problema}}</p>
-
-        {% if estado == "Aceptado" %}
+        <h2>Hola, {{cliente.nombre}}</h2>
+        <p>El pedido que tenías con este problema: {{cliente.problema}}</p>
+        <div>
+        {% if cliente.estado == "Aceptado" %}
         <p>Se encuentra en el estado: Aceptado . </p>
-        {% elif estado == "En produccion" %}
+        {% elif cliente.estado == "En produccion" %}
         <p>Se encuentra en el estado: En produccion.</p>
         {% else %}
         <p>Se encuentra en el estado: Listo para retirar.<p/>
             {% endif %}
-
-        <a href="{% url 'clientes:formCodigo' %}">Atrás</a>
-        <a href="{% url 'clientes:home' %}">Inicio</a>
+            <p>El pedido se estima que este terminado para el {{cliente.finalizacion}}</p>
+        </div>
+        <div>
+            <p>El monto total a pagar es de: ${{cliente.montoTotal}}</p>
+            <p>Haz abonado la cantidad de:   ${{cliente.montoTotal}}</p>
+            <p>El monto restante a pagar es: ${{cliente.montoTotal}}</p>
+        </div>
+        
+        <a href="{% url 'clientes:formCodigo' %}">Atras</a>
     </div>
 </body>
 </html>

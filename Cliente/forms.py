@@ -10,7 +10,7 @@ class FormCliente(forms.ModelForm):
 class FormCodigo(forms.ModelForm):    
     class Meta:
         model = Cliente
-        exclude = ['estado','problema','nombre_apellido','correo']
+        fields = ['codigo']
 
 
 
