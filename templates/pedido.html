@@ -1,33 +1,63 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'pedido.css' %}">
+    <link rel="stylesheet" href="{% static 'a.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
     <title>Detalle del Pedido</title>
 </head>
-<body>
-    <div class="container">
-        <h2>Hola, {{cliente.nombre}}</h2>
-        <p>El pedido que tenías con este problema: {{cliente.problema}}</p>
-        <div>
-        {% if cliente.estado == "Aceptado" %}
-        <p>Se encuentra en el estado: Aceptado . </p>
-        {% elif cliente.estado == "En produccion" %}
-        <p>Se encuentra en el estado: En produccion.</p>
+
+<body class="gradient-bg">
+
+    <div class="container text-center p-5 my-5 rounded shadow-lg" style="max-width: 800px; background-color: white;">
+        <h2 class="mb-3">Hola, {{cliente.nombre}}</h2>
+        <p>El producto que tenía este problema: {{cliente.problema}}</p>
+        {% if cliente.estado != "No se puede arreglar"  %}
+            <p>Se encuentra en {{cliente.estado}}</p>
         {% else %}
-        <p>Se encuentra en el estado: Listo para retirar.<p/>
-            {% endif %}
-            <p>El pedido se estima que este terminado para el {{cliente.finalizacion}}</p>
+            <p>No se puede arreglar, lo sentimos mucho</p>
+        {% endif %}
+
+        <div class="progress my-4" style="height: 30px;">
+            <div class="progress-bar progress-bar-striped 
+                {% if cliente.estado == 'Aceptado' %} bg-info
+                {% elif cliente.estado == 'En produccion' %} bg-warning
+                {% elif cliente.estado == 'No se puede arreglar' %} bg-danger
+                {% else %} bg-success
+                {% endif %}" 
+                role="progressbar" style="width: {% if cliente.estado == 'Aceptado' %} 10%
+                {% elif cliente.estado == 'En produccion' %} 60%
+                {% elif cliente.estado == 'No se puede arreglar' %} 100%
+                {% else %} 25%
+                {% endif %};" 
+                aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
-        <div>
-            <p>El monto total a pagar es de: ${{cliente.montoTotal}}</p>
-            <p>Haz abonado la cantidad de:   ${{cliente.montoTotal}}</p>
-            <p>El monto restante a pagar es: ${{cliente.montoTotal}}</p>
+
+        <div class="row">
+            <div class="col-lg-6 text-left">
+                <h5 class="my-3">Detalles del pedido:</h5>
+                <p>Fecha estimada de finalización: {{cliente.finalizacion}}</p>
+            </div>
+            <div class="col-lg-6 text-left">
+                <h5 class="my-3">Detalles del pago:</h5>
+                <p>Monto total a pagar: ${{cliente.montoTotal}}</p>
+                <p>Cantidad abonada: ${{cliente.partePago}}</p>
+                <p>Monto restante a pagar: ${{cliente.aPagar}}</p>
+            </div>
         </div>
-        
-        <a href="{% url 'clientes:formCodigo' %}">Atras</a>
+
+        <div class="text-center mt-4">
+            <a href="{% url 'clientes:formCodigo' %}" class="myButton">Atrás</a>
+        </div>
     </div>
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
+
 </html>

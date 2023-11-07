@@ -252,7 +252,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
 
     PatternLock.defaults = {
-        onPattern: function onPattern() {},
+        onPattern: function onPattern(pattern) {
+            this.success();
+            document.getElementById('patron_dibujo_input').value = pattern;
+        },
         vibrate: true
     };
     console.log(PatternLock);

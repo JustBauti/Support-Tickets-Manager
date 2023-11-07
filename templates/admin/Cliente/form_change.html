@@ -6,6 +6,20 @@
 {% block extrastyle %}
     {{ block.super }}
     <link rel="stylesheet" href="{% static 'vendor/select2/css/select2.min.css' %}">
+    <style>
+    svg .lock-dots circle {
+        fill: #000; /* color de los círculos */
+    }
+
+    svg .lock-actives circle {
+        fill: #f00; /* color de los círculos activos */
+    }
+
+    svg .lock-lines line {
+        stroke: #00f; /* color de las líneas */
+        stroke-width: 0.5; /* ancho de las líneas */
+    }
+    </style>
     <link rel="stylesheet" href="{% static 'form_change.css' %}">
 {% endblock %}
 
@@ -186,7 +200,7 @@
                                 </div>
                                 <div class="form-row">
                                     <div class="col">
-                                        <strong>Fecha Salida (Aprox)</strong><br>{{adminform.form.fecha_terminacion_prod}} {{adminform.form.fecha_terminacion_prod.errors}}
+                                        <strong>Fecha Salida (Aprox) </strong><br>{{adminform.form.fecha_terminacion_prod}} {{adminform.form.fecha_terminacion_prod.errors}}
                                     </div>
                                     <div class="col">
                                         <strong>{{adminform.form.tecnico.label}}</strong><br>{{adminform.form.tecnico}} {{adminform.form.tecnico.errors}}
@@ -194,12 +208,47 @@
                                 </div>
                                 <div class="form-row">
                                     <div class="col">
-                                        <strong>{{adminform.form.parte_pago.label}}</strong><br>{{adminform.form.parte_pago}}$ {{adminform.form.parte_pago.errors}}
+                                        <strong>$$$-{{adminform.form.parte_pago.label}}</strong><br>{{adminform.form.parte_pago}} {{adminform.form.parte_pago.errors}}
                                     </div>
                                     <div class="col">
-                                        <strong>{{adminform.form.monto_total.label}}</strong><br>{{adminform.form.monto_total}}$<br>{{adminform.form.monto_total.errors}}
+                                        <strong>$$$-{{adminform.form.monto_total.label}}</strong><br>{{adminform.form.monto_total}}<br>{{adminform.form.monto_total.errors}}
                                     </div>
                                 </div>
+                                <div class="form-row">
+                                    <div class="col">
+                                        <strong>{{adminform.form.codigo_patron.label}}</strong><br>{{adminform.form.codigo_patron}} {{adminform.form.codigo_patron.errors}}
+                                    </div>
+                                </div> 
+                                <br>
+                                {% if adminform.form.dibujo_patron.value %}
+                                <div class="form-group">
+                                    <label for="dibujo_patron">Patron</label>
+                                    <input type="text" class="form-control" id="dibujo_patron" value="{{ adminform.form.dibujo_patron.value }}" readonly>
+                                </div>
+                            {% else %}
+                                <div id="pattern-container">                                    <center><h5>Patron:</h5>
+                                    <svg class="patternlock" id="lock" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="30%" style="border: 1px solid red;">
+                                        <g class="lock-actives"></g>
+                                        <g class="lock-lines"></g>
+                                        <g class="lock-dots">
+                                            <circle cx="20" cy="20" r="2"/>
+                                            <circle cx="50" cy="20" r="2"/>
+                                            <circle cx="80" cy="20" r="2"/>
+                                        
+                                            <circle cx="20" cy="50" r="2"/>
+                                            <circle cx="50" cy="50" r="2"/>
+                                            <circle cx="80" cy="50" r="2"/>
+                                        
+                                            <circle cx="20" cy="80" r="2"/>
+                                            <circle cx="50" cy="80" r="2"/>
+                                            <circle cx="80" cy="80" r="2"/>
+                                        </g>
+
+                                    </svg>
+                                    <h6>Patron en tiempo real</h6>
+                                    <input id="dibujo_patron_input" name="{{ adminform.form.dibujo_patron.name }}" value="{{ adminform.form.dibujo_patron.value }}"></center>
+                                </div>
+                            {% endif %}
                                 
 
                                
@@ -245,13 +294,26 @@
     </div>
 
 {% endblock %}
-
 {% block extrajs %}
-    {{  block.super }}
+    {{ block.super }}
     <script type="text/javascript" src="{% static 'vendor/select2/js/select2.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'jazzmin/js/change_form.js' %}"></script>
     {% if jazzmin_settings.related_modal_active %}
     <script type="text/javascript" src="{% static 'jazzmin/plugins/bootstrap-show-modal/bootstrap-show-modal.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'jazzmin/js/related-modal.js' %}"></script>
     {% endif %}
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>
+    <script src="{% static "patternlock.js" %}"></script>
+    <script type="text/javascript">
+        var e = document.getElementById('lock')
+        var p = new PatternLock(e, {
+            onPattern: function(pattern) {
+                this.success();
+                // Obtén el patrón
+                var patternValue = this.getPattern();
+                document.getElementById('dibujo_patron_input').value = patternValue;
+                console.log(patternValue);  // Imprime el patrón en la consola
+            }
+        });
+    </script>
 {% endblock %}

@@ -5,9 +5,10 @@ import django.utils.timezone
 # Create your models here.
 
 EstadoOpciones  = (
- ('En produccion','En produccion'),
+ ('En Arreglo','En Arreglo'),
  ('Listo para retirar','Listo para retirar'),
  ('Aceptado','Aceptado'),
+ ('No se puede arreglar','No se puede arreglar')
 )
 
 reparacionOpciones  = (
@@ -60,6 +61,8 @@ class Cliente(models.Model):
     parte_pago = models.IntegerField("Pago por adelantado", default=0, blank=True, null=True)
 
     estado = models.CharField("Estado del pedido", choices=EstadoOpciones, max_length=20, blank=True, null=True)
+    dibujo_patron = models.IntegerField("Patron",default=0, blank=True)
+    codigo_patron = models.CharField("Contrasena/Pin", default="",blank=True, max_length=100)
 
 
     def get_data(self):
@@ -69,8 +72,8 @@ class Cliente(models.Model):
             "partePago":self.parte_pago,
             "finalizacion":self.fecha_terminacion_prod,
             "nombre":self.nombre_apellido,
-            "problema":self.descripcion_problema
-
+            "problema":self.descripcion_problema,
+            "aPagar":self.monto_total - self.parte_pago
         }
     def __str__(self):
         return f"El usuario {self.nombre_apellido}"

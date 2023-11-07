@@ -1,11 +1,8 @@
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import render
+from django.http import Http404
+from django.views import View
 from .forms import FormCodigo
 from .models import Cliente
-from django.views.generic import View
-
-
-def Patron(request):
-    return render(request,'patron.html',{})
 
 class CodigoForm(View):
     def get(self,request,*args, **kwargs):
@@ -15,13 +12,16 @@ class CodigoForm(View):
         return render(request,'codigo.html',contexto)
     
     def post(self,request,*args, **kwargs):
-        if request.method == 'POST':
-            c = get_object_or_404(Cliente, codigo=request.POST['codigo']).get_data()
-                       
-            if FormCodigo(request.POST).is_valid():
-                contexto = {
-                    "cliente":c
-                }
-                return render(request,"pedido.html",contexto)        
-        return render(request,'form_codigo.html', {})
-
+        form = FormCodigo(request.POST)
+        if form.is_valid():
+            codigo = form.cleaned_data.get('codigo')
+            try:
+                c = Cliente.objects.get(codigo=codigo)
+            except Cliente.DoesNotExist:
+                form.add_error('codigo', 'Código no encontrado, por favor vuelve a intentarlo.')
+                return render(request, 'codigo.html', {'formulario': form})
+            contexto = {
+                "cliente":c.get_data()
+            }
+            return render(request,"pedido.html",contexto)        
+        return render(request,'codigo.html', {'formulario': form})

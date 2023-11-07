@@ -8,6 +8,11 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="{% static 'form_codigo.css' %}">
     <title>Bienvenido a Soporte Técnico 9 BITS</title>
+    <style>
+        ul {
+            list-style: none;
+        }
+    </style>
 </head>
 
 <body class="gradient-bg" style="background-color:">
@@ -21,7 +26,14 @@
         <p>Introduce el código que te proporcionamos previamente para poder monitorear el estado de tu pedido y acceder a otros detalles relevantes.</p>
         <form method="post" class="text-left">
             {% csrf_token %}
-            <center>{{ formulario.codigo}}</center>
+            <center>
+                {{ formulario.codigo }}
+                {% if formulario.codigo.errors %}
+                    <div class="alert alert-danger mt-2" style="">
+                        {{ formulario.codigo.errors }}
+                    </div>
+                {% endif %}
+            </center>
             <br>
             <div class="inputbox text-center">
                 <input type="submit" value="Consultar" class="myButton">
