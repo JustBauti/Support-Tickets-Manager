@@ -27,7 +27,7 @@
         <form method="post" class="text-left">
             {% csrf_token %}
             <center>
-                {{ formulario.codigo }}
+                <input type="text" name="codigo" value="" required>
                 {% if formulario.codigo.errors %}
                     <div class="alert alert-danger mt-2" style="">
                         {{ formulario.codigo.errors }}

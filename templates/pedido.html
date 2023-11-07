@@ -13,15 +13,8 @@
 <body class="gradient-bg">
 
     <div class="container text-center p-5 my-5 rounded shadow-lg" style="max-width: 800px; background-color: white;">
-        <h2 class="mb-3">Hola, {{cliente.nombre}}</h2>
-        <p>El producto que tenía este problema: {{cliente.problema}}</p>
-        {% if cliente.estado != "No se puede arreglar"  %}
-            <p>Se encuentra en {{cliente.estado}}</p>
-        {% else %}
-            <p>No se puede arreglar, lo sentimos mucho</p>
-        {% endif %}
-
-        <div class="progress my-4" style="height: 30px;">
+        <h5>ESTADO DE TU PEDIDO</h5>
+        <div class="progress my-4 position-relative" style="height: 30px;">
             <div class="progress-bar progress-bar-striped 
                 {% if cliente.estado == 'Aceptado' %} bg-info
                 {% elif cliente.estado == 'En produccion' %} bg-warning
@@ -34,14 +27,26 @@
                 {% else %} 25%
                 {% endif %};" 
                 aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+            <span style="position: absolute; width: 100%; left: 0; top: 50%; transform: translate(0, -50%); text-align: center;">{{cliente.estado}}</span>
         </div>
+        <h2 class="mb-3">Hola, {{cliente.nombre}}</h2>
+        <p>El producto que tenía este problema: {{cliente.problema}}</p>
+        {% if cliente.estado != "No se puede arreglar"  %}
+            <p>Se encuentra en {{cliente.estado}}</p>
+        {% else %}
+            <p>No se puede arreglar, lo sentimos mucho</p>
+        {% endif %}
 
         <div class="row">
-            <div class="col-lg-6 text-left">
+            <div class="col-12 text-left border border-danger rounded p-3 my-2">
                 <h5 class="my-3">Detalles del pedido:</h5>
-                <p>Fecha estimada de finalización: {{cliente.finalizacion}}</p>
+                <div class="detalle-pedido">
+                    <p>Fecha estimada de finalización: {{cliente.finalizacion}}</p>
+                </div>
             </div>
-            <div class="col-lg-6 text-left">
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-8 col-lg-6 text-left border border-success rounded p-3 my-2">
                 <h5 class="my-3">Detalles del pago:</h5>
                 <p>Monto total a pagar: ${{cliente.montoTotal}}</p>
                 <p>Cantidad abonada: ${{cliente.partePago}}</p>

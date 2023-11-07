@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from django.http import Http404
 from django.views import View
 from .forms import FormCodigo
 from .models import Cliente
