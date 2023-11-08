@@ -6,9 +6,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{% static 'form_codigo.css' %}">
+    <link rel="stylesheet" href="{% static 'home.css' %}">
+    <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet'>
     <title>Bienvenido a Soporte Técnico 9 BITS</title>
     <style>
+        body {
+            font-family: 'Oswald';
+            }
         ul {
             list-style: none;
         }
@@ -21,8 +25,8 @@
         <img src="https://9bits.com.ar/v31/wp-content/uploads/2022/09/cropped-12anos.jpg" alt="Mi Foto" class="rounded-img my-4">
         <h1 class="text-dark">Soporte Técnico</h1>
         <p class="text-dark">¡Hola! Somos 9 Bits, tus técnicos de confianza. Estamos aquí para ayudarte con cualquier problema que puedas tener. Con más de 12 años de experiencia, comprometidos a brindarte soluciones efectivas y un servicio de calidad.</p>
-
-        <h3 class="text-dark my-4">Estado de tu pedido</h3>
+        <br>
+        <h4 class="text-dark">Tu Pedido</h4>
         <p>Introduce el código que te proporcionamos previamente para poder monitorear el estado de tu pedido y acceder a otros detalles relevantes.</p>
         <form method="post" class="text-left">
             {% csrf_token %}

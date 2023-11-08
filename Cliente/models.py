@@ -73,7 +73,8 @@ class Cliente(models.Model):
             "finalizacion":self.fecha_terminacion_prod,
             "nombre":self.nombre_apellido,
             "problema":self.descripcion_problema,
-            "aPagar":self.monto_total - self.parte_pago
+            "aPagar":self.monto_total - self.parte_pago,
+            "codigo":self.codigo
         }
     def __str__(self):
         return f"El usuario {self.nombre_apellido}"

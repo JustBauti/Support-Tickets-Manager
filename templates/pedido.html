@@ -5,8 +5,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'a.css' %}">
+    <link rel="stylesheet" href="{% static 'pedido.css' %}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet'>
+    <style>
+    body {
+        font-family: 'Oswald';
+        }
+    </style>
     <title>Detalle del Pedido</title>
 </head>
 
@@ -17,40 +23,51 @@
         <div class="progress my-4 position-relative" style="height: 30px;">
             <div class="progress-bar progress-bar-striped 
                 {% if cliente.estado == 'Aceptado' %} bg-info
-                {% elif cliente.estado == 'En produccion' %} bg-warning
+                {% elif cliente.estado == 'En Arreglo' %} bg-warning
                 {% elif cliente.estado == 'No se puede arreglar' %} bg-danger
                 {% else %} bg-success
                 {% endif %}" 
-                role="progressbar" style="width: {% if cliente.estado == 'Aceptado' %} 10%
-                {% elif cliente.estado == 'En produccion' %} 60%
+                role="progressbar" style="width: {% if cliente.estado == 'Aceptado' %} 20%
+                {% elif cliente.estado == 'En Arreglo' %} 60%
                 {% elif cliente.estado == 'No se puede arreglar' %} 100%
-                {% else %} 25%
+                {% else %} 100%
                 {% endif %};" 
                 aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
-            <span style="position: absolute; width: 100%; left: 0; top: 50%; transform: translate(0, -50%); text-align: center;">{{cliente.estado}}</span>
+            <span style="position: absolute; width: 100%; left: 0; top: 50%; transform: translate(0, -50%); text-align: center; 
+                {% if cliente.estado == 'Aceptado' %} color: blue;
+                {% elif cliente.estado == 'En Arreglo' %} color: black;
+                {% elif cliente.estado == 'No se puede arreglar' %} color: white;
+                {% else %} color: black;
+                {% endif %}">
+                {{cliente.estado | upper}}
+            </span>
         </div>
-        <h2 class="mb-3">Hola, {{cliente.nombre}}</h2>
-        <p>El producto que tenía este problema: {{cliente.problema}}</p>
-        {% if cliente.estado != "No se puede arreglar"  %}
-            <p>Se encuentra en {{cliente.estado}}</p>
-        {% else %}
-            <p>No se puede arreglar, lo sentimos mucho</p>
-        {% endif %}
+
 
         <div class="row">
-            <div class="col-12 text-left border border-danger rounded p-3 my-2">
-                <h5 class="my-3">Detalles del pedido:</h5>
+            <div class="col-12 text-left border border-info rounded p-3 my-2 alert alert-info">
+                <h5 class="my-3">DETALLES DEL PEDIDO:</h5>
                 <div class="detalle-pedido">
                     <p>Fecha estimada de finalización: {{cliente.finalizacion}}</p>
+                    <p>Problema del pedido: {{cliente.problema}}</p>
                 </div>
             </div>
         </div>
         <div class="row justify-content-center">
-            <div class="col-12 col-md-8 col-lg-6 text-left border border-success rounded p-3 my-2">
-                <h5 class="my-3">Detalles del pago:</h5>
-                <p>Monto total a pagar: ${{cliente.montoTotal}}</p>
-                <p>Cantidad abonada: ${{cliente.partePago}}</p>
-                <p>Monto restante a pagar: ${{cliente.aPagar}}</p>
+            <div class="col-12 col-md-8 col-lg-6 text-left border border-warning  alert alert-warning rounded p-3 my-2">
+                <h5 class="my-3">DETALLES DEL PAGO</h5>
+                <div class="d-flex justify-content-between">
+                    <p>Monto total a pagar:</p>
+                    <p>${{cliente.montoTotal}}</p>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <p>Cantidad abonada:</p>
+                    <p>${{cliente.partePago}}</p>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <p>Monto restante a pagar:</p>
+                    <p>${{cliente.aPagar}}</p>
+                </div>
             </div>
         </div>
 

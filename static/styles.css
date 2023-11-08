@@ -7,7 +7,7 @@ svg.patternlock g.lock-lines line {
 svg.patternlock g.lock-dots circle {
     stroke: transparent;
     fill: black;
-    stroke-width: 13.5;
+    stroke-width: 16.5;
 }
 
 svg.patternlock g.lock-actives circle {

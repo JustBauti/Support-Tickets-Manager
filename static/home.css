@@ -1,5 +1,4 @@
 body.gradient-bg {
-    font-family: 'Arial', sans-serif;
     background-image: linear-gradient(180deg, #a6ffff 0, #a2edff 25%, #9dd5f2 50%, #96bed5 75%, #8ea8b9 100%);
     margin: 0;
     padding: 0;

@@ -8,19 +8,20 @@ class CodigoForm(View):
         contexto = {
             'formulario':FormCodigo()
         }
-        return render(request,'codigo.html',contexto)
+        return render(request,'home.html',contexto)
     
     def post(self,request,*args, **kwargs):
         form = FormCodigo(request.POST)
         if form.is_valid():
             codigo = form.cleaned_data.get('codigo')
+            print(codigo)
             try:
-                c = Cliente.objects.get(codigo=codigo)
+                cliente = Cliente.objects.get(codigo=codigo)
             except Cliente.DoesNotExist:
                 form.add_error('codigo', 'Código no encontrado, por favor vuelve a intentarlo.')
-                return render(request, 'codigo.html', {'formulario': form})
+                return render(request, 'home.html', {'formulario': form})
             contexto = {
-                "cliente":c.get_data()
+                "cliente":cliente.get_data()
             }
             return render(request,"pedido.html",contexto)        
-        return render(request,'codigo.html', {'formulario': form})
+        return render(request,'home.html', {'formulario': form})
