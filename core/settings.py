@@ -67,11 +67,15 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'URL': 'postgresql://postgres:4DDcadA2BAE6EGC33agdBFcCCgBfFcfe@viaduct.proxy.rlwy.net:13208/railway',
+        'NAME': 'railway',
+        'USER': 'postgres',
+        'PASSWORD': '4DDcadA2BAE6EGC33agdBFcCCgBfFcfe',
+        'HOST': 'viaduct.proxy.rlwy.net',
+        'PORT': 13208,
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -117,14 +121,6 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-#Email configuracion
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'elbautisocial@gmail.com'
-EMAIL_HOST_PASSWORD = 'kqro boqg lrek dcix'
-
 
 #Templates Admin-Panel
 JAZZMIN_SETTINGS = {
@@ -138,13 +134,13 @@ JAZZMIN_SETTINGS = {
     "site_brand": "9-Bits",
 
     # Logo to use for your site, must be present in static files, used for brand on top left
-    "site_logo": "books/img/logo.png",
+    "site_logo": "static/logo.png",
 
     # Logo to use for your site, must be present in static files, used for login form logo (defaults to site_logo)
-    "login_logo": None,
+    "login_logo": "static/logo.png",
 
     # Logo to use for login form in dark themes (defaults to login_logo)
-    "login_logo_dark": None,
+    "login_logo_dark": "static/logo.png",
 
     # CSS classes that are applied to the logo above
     "site_logo_classes": "img-circle",

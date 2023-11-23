@@ -1,0 +1,53 @@
+#id_mensaje{
+    width: 89.3%;
+    height: 90px;
+}
+#wasap{
+    font-size: 60px;
+
+}
+#codigo, #id_otros{
+    width: 100%;
+}
+#id_descripcion_problema, #id_objectos, #id_estado, #id_fecha_deja_prod, #id_fecha_terminacion_prod, #id_monto_total,#id_parte_pago,#id_codigo_patron{
+    width:100%;
+}
+
+
+#id_nombre_apellido, #id_telefono_contacto{
+    width: 100%;
+}
+
+#id_equipo, #id_modelo_equipo, #id_imei{
+    width: 100%;
+}
+
+
+ul.errorlist {
+    padding: 5px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    list-style: none;
+    width:70%;
+}
+
+.card p {
+    font-size: 12px;
+}
+svg .lock-dots circle {
+    fill: #000; /* color de los círculos */
+}
+
+svg .lock-actives circle {
+    fill: #f00; /* color de los círculos activos */
+}
+
+svg .lock-lines line {
+    stroke: #00f; /* color de las líneas */
+    stroke-width: 0.5; /* ancho de las líneas */
+} 

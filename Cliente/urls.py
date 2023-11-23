@@ -1,5 +1,5 @@
 
-app_name = 'clientes'
+app_name = 'servicios'
 
 from django.urls import path
 from .views import CodigoForm

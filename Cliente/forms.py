@@ -1,15 +1,15 @@
 from django import forms
-from .models import Cliente
+from .models import Servicio
 
 
-class FormCliente(forms.ModelForm):    
+class FormServicio(forms.ModelForm):    
     class Meta:
-        model = Cliente
+        model = Servicio
         exclude = ['codigo','estado']
 
 class FormCodigo(forms.ModelForm):    
     class Meta:
-        model = Cliente
+        model = Servicio
         fields = ['codigo']
 
 

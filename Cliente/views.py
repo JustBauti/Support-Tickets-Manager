@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views import View
 from .forms import FormCodigo
-from .models import Cliente
+from .models import Servicio
 
 class CodigoForm(View):
     def get(self,request,*args, **kwargs):
@@ -16,12 +16,13 @@ class CodigoForm(View):
             codigo = form.cleaned_data.get('codigo')
             print(codigo)
             try:
-                cliente = Cliente.objects.get(codigo=codigo)
-            except Cliente.DoesNotExist:
+                servicio = Servicio.objects.get(codigo=codigo)
+                print(servicio.get_data())
+            except Servicio.DoesNotExist:
                 form.add_error('codigo', 'Código no encontrado, por favor vuelve a intentarlo.')
                 return render(request, 'home.html', {'formulario': form})
             contexto = {
-                "cliente":cliente.get_data()
+                "servicio":servicio.get_data()
             }
             return render(request,"pedido.html",contexto)        
         return render(request,'home.html', {'formulario': form})
