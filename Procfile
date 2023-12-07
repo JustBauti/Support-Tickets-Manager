@@ -1,1 +1,1 @@
-web: gunicorn support-tickets-manager.wsgi
+web: gunicorn core.wsgi
