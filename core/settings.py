@@ -15,7 +15,7 @@ SECRET_KEY = 'django-insecure-*6%vk@6_wvzx5yjwko(i)3zy&!5e%f&12k8&-bjy^rhe*c#tq*
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    "127.0.0.1"
+    "support-ticket-manager-4704e26c8d72.herokuapp.com"
 ]
 
 LOGGING = {
