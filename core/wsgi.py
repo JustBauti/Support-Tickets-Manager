@@ -13,9 +13,11 @@ https://docs.djangoproject.com/en/4.2/howto/deployment/wsgi/
 # application = get_wsgi_application()
 
 import os
-
+from whitenoise import WhiteNoise
 from django.core.wsgi import get_wsgi_application
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'core.settings')
 
 application = get_wsgi_application()
+application = WhiteNoise(application, root="/Users/bautistamateuci/Desktop/Support-Tickets-Manager/static")
+application.add_files("/Users/bautistamateuci/Desktop/Support-Tickets-Manager/static", prefix="/")

@@ -15,7 +15,7 @@ SECRET_KEY = 'django-insecure-*6%vk@6_wvzx5yjwko(i)3zy&!5e%f&12k8&-bjy^rhe*c#tq*
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    "Render"
+    "127.0.0.1"
 ]
 
 
@@ -41,6 +41,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
 ROOT_URLCONF = 'core.urls'
@@ -67,15 +69,12 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'URL': 'postgresql://postgres:4DDcadA2BAE6EGC33agdBFcCCgBfFcfe@viaduct.proxy.rlwy.net:13208/railway',
-        'NAME': 'railway',
-        'USER': 'postgres',
-        'PASSWORD': '4DDcadA2BAE6EGC33agdBFcCCgBfFcfe',
-        'HOST': 'viaduct.proxy.rlwy.net',
-        'PORT': 13208,
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": "mydatabase",
     }
 }
 
