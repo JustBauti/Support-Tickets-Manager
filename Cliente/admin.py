@@ -29,15 +29,14 @@ class Serviciosdate(admin.ModelAdmin):
     list_display = ("nombre_apellido", "estado_color", "fecha_entrada", "fecha_termina","codigo")
     search_fields = ("nombre_apellido__startswith","estado__startswith")
 
-
     def estado_color(self, obj):
         colores = {
-        'Aceptado': '#0000FF',  # Azul
-        'Listo para retirar': '#008000',  # Verde
-        'No se puede arreglar': '#FF0000',  # Rojo
-        'En Arreglo': '#FFA500',  # Naranja
+            'Aceptado': '#0000FF',  # Azul
+            'Listo para retirar': '#008000',  # Verde
+            'No se puede arreglar': '#FF0000',  # Rojo
+            'En Arreglo': '#FFA500',  # Naranja
         }
-        color = colores.get(obj.estado, '#000000')  # Negro por defecto si el estado no se encuentra en el diccionario
+        color = colores.get(obj.estado, '#000000')
         return format_html('<span style="color: {};">{}</span>', color, obj.estado)
     estado_color.short_description = 'estado'
     estado_color.admin_order_field = 'estado'
@@ -58,14 +57,25 @@ class Serviciosdate(admin.ModelAdmin):
 
     def add_view(self, request, form_url='', extra_context=None):
         extra_context = extra_context or {}
-        ultimo_cliente = Servicio.objects.order_by('-id').first()
+        ultimo_cliente = Servicio.objects.order_by('id').last()
         if ultimo_cliente:
-            extra_context['ultimo_cliente_id_mas_uno'] = ultimo_cliente.id + 1000
+            # Si hay un último cliente, se toma su ID, se le suma 1000 y se asigna al próximo cliente
+            extra_context['codigo_cliente'] = str(ultimo_cliente.id + 1000)
         else:
-            extra_context['ultimo_cliente_id_mas_uno'] = 1
-        print("change_view se está ejecutando, mi_variable es: ", extra_context['ultimo_cliente_id_mas_uno'])
-        extra_context['ultimo_cliente'] = ultimo_cliente
+            # Si no hay clientes, se asigna el código 1000 al primer cliente
+            extra_context['codigo_cliente'] = '1000'
+        print("add_view se está ejecutando, codigo_cliente es: ", extra_context['codigo_cliente'])
         return super().add_view(request, form_url, extra_context=extra_context)
+
+    def change_view(self, request, object_id, form_url='', extra_context=None):
+        extra_context = extra_context or {}
+        # Get the current Servicio object
+        servicio = Servicio.objects.get(id=object_id)
+        # Add the codigo_cliente to the context
+        extra_context['codigo_cliente'] = servicio.codigo
+        extra_context['object_id'] = object_id
+        print(object_id)
+        return super().change_view(request, object_id, form_url, extra_context=extra_context)
 
 @admin.register(Tecnico)
 class Tecnicos(admin.ModelAdmin):

@@ -85,8 +85,10 @@
                                     <div class="col">
                                         <strong>{{adminform.form.estado.label}}</strong><br>{{adminform.form.estado}} {{adminform.form.estado.errors}}
                                     </div>
-                                    <div class="col" >
-                                        <strong>{{adminform.form.codigo.label}}</strong><br><input type="text" id="codigo" name="codigo" value="{{ ultimo_cliente_id_mas_uno }}"> {{adminform.form.codigo.errors}}
+                                    <div class="col">
+                                        <strong>{{adminform.form.codigo.label}}</strong><br>
+                                        <input type="text" id="codigo" name="codigo" value="{{ codigo_cliente }}"> 
+                                        {{adminform.form.codigo.errors}}
                                     </div>
                                   </div>
                                   <div class="form-row">
@@ -94,7 +96,6 @@
                                         <strong>{{adminform.form.mensaje.label}}</strong><br>{{adminform.form.mensaje}} <a href=""id="whatsapp-link" target="_blank" ><i id="wasap" class="fab fa-whatsapp"></i></a> {{adminform.form.estado.errors}}
                                     </div>
                                   </div>
-
                                   <div class="row">
                                     <!-- Tarjeta 1 - Aceptado -->
                                     <div class="col-lg-6 col-md-12 mb-4">
@@ -116,7 +117,7 @@
                                                 <h5 class="card-title">Arreglo en Proceso</h5>
                                                 <p class="card-text">
                                                     Estimado/a Sr./Sra. <span id="nombre_apellido_placeholder2"></span>,
-                                                    le informamos que actualmente estamos trabajando en su equipo para resolver el problema. Nuestro equipo está haciendo todo lo posible para garantizar que su dispositivo vuelva a funcionar como nuevo. Pronto le proporcionaremos más detalles y le notificaremos cuando esté listo para ser retirado en nuestras instalaciones. ¡Agradecemos su comprensión!
+                                                    le informamos que actualmente estamos trabajando en su equipo <span id="equipo_placeholder2"></span> para resolver el problema. Nuestro equipo está haciendo todo lo posible para garantizar que su dispositivo vuelva a funcionar como nuevo. Pronto le proporcionaremos más detalles y le notificaremos cuando esté listo para ser retirado en nuestras instalaciones. ¡Agradecemos su comprensión!
                                                 </p>
                                             </div>
                                         </div>
@@ -126,12 +127,12 @@
                                 <div class="row">
                                     <!-- Tarjeta 3 - Listo para Retirar -->
                                     <div class="col-lg-6 col-md-12 mb-4">
-                                        <div class="card custom-card h-100 text-white bg-danger">
+                                        <div class="card custom-card h-100 text-white bg-success">
                                             <div class="card-body">
                                                 <h5 class="card-title">Listo para Retirar</h5>
                                                 <p class="card-text">
                                                     Estimado/a Sr./Sra. <span id="nombre_apellido_placeholder3"></span>,
-                                                    lamentablemente no pudimos resolver el problema con su equipo. Puede pasar a retirar su equipo en nuestras instalaciones. Estamos disponibles para discutir opciones alternativas o brindar más información. ¡Agradecemos su comprensión!
+                                                    su equipo <span id="equipo_placeholder3"></span> ya fue atendido y el problema exitosamente fue resuelto, ya puede venir a retirar el equipo. Muchas gracias!
                                                 </p>
                                             </div>
                                         </div>
@@ -139,17 +140,20 @@
                                 
                                     <!-- Tarjeta 4 - Otro Tipo de Mensaje -->
                                     <div class="col-lg-6 col-md-12 mb-4">
-                                        <div class="card custom-card h-100 text-white bg-success">
+                                        <div class="card custom-card h-100 text-white bg-danger">
                                             <div class="card-body">
-                                                <h5 class="card-title">Otro Tipo de Mensaje</h5>
+                                                <h5 class="card-title">No tiene arreglo </h5>
                                                 <p class="card-text">
                                                     Estimado/a Sr./Sra. <span id="nombre_apellido_placeholder4"></span>,
-                                                    su equipo <span id="equipo_placeholder4"></span> ya fue atendido y el problema lamentablemente no fue resuelto, ya puede venir a retirar el equipo, muchas gracias!
+                                                    lamentablemente no pudimos resolver el problema con su equipo <span id="equipo_placeholder4"></span>. Puede pasar a retirar su equipo en nuestras instalaciones. Estamos disponibles para discutir opciones alternativas o brindar más información. ¡Agradecemos su comprensión!
                                                 </p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                               
+                            
+
                                   <div class="form-row">
                                     <div class="col">
                                         <strong>{{adminform.form.nombre_apellido.label}}</strong><br>{{adminform.form.nombre_apellido}} {{adminform.form.nombre_apellido.errors}}
@@ -370,65 +374,75 @@
             });
         });
     </script>
+
     <script>
         $(document).ready(function() {
-            // Inicializa Select2 y demás código...
-        
-            // Actualiza el texto cuando cambia el valor del campo 'nombre_apellido'
-            $('#id_nombre_apellido').on('input', function() {
-                $('[id^=nombre_apellido_placeholder]').text($(this).val());
-            }).trigger('input');  // Dispara el evento 'input' manualmente
-        
-            // Actualiza el texto cuando cambia el valor del campo 'equipo'
-            $('#id_equipo').on('input', function() {
-                $('[id^=equipo_placeholder]').text($(this).val());
-            }).trigger('input');  // Dispara el evento 'input' manualmente
-        
-            // Resto del código...
-        });
-    </script>
-    <script>
-        $(document).ready(function() {
-            // Resto del código...
-        
-            // Actualiza el enlace de WhatsApp cuando cambia el valor de 'id_telefono_contacto' o 'id_mensaje'
-            $('#id_telefono_contacto, #id_mensaje').on('input', function() {
-                var telefono = $('#id_telefono_contacto').val().trim();
-                var mensaje = encodeURIComponent($('#id_mensaje').val());
-                var whatsappLink = 'https://api.whatsapp.com/send?phone=' + telefono + '&text=' + mensaje;
-                
-                $('#whatsapp-link').attr('href', whatsappLink);
-        
-                // Imprime el enlace de WhatsApp en la consola
-                console.log('Enlace de WhatsApp: ' + whatsappLink);
-            }).trigger('input');  // Dispara el evento 'input' manualmente
-        
-            // Actualiza el mensaje cuando cambia el valor de 'id_nombre_apellido' o 'id_equipo'
-            $('#id_nombre_apellido, #id_equipo').on('input', function() {
-                var id_mensaje = document.getElementById('id_mensaje');
+            $('#id_nombre_apellido, #id_equipo, #id_estado').on('input', function() {
                 var nombreApellido = $('#id_nombre_apellido').val();
                 var equipo = $('#id_equipo').val();
                 var selectedValue = $('#id_estado').val();
         
+                // Actualiza los campos de nombre y equipo en todas las tarjetas
+                $('#nombre_apellido_placeholder1, #nombre_apellido_placeholder2, #nombre_apellido_placeholder3, #nombre_apellido_placeholder4').text(nombreApellido);
+                $('#equipo_placeholder1, #equipo_placeholder2, #equipo_placeholder3, #equipo_placeholder4').text(equipo);
+        
+                // Actualiza el texto de la tarjeta de acuerdo al estado seleccionado
                 switch (selectedValue) {
                     case 'Aceptado':
-                        id_mensaje.value = 'Estimado/a Sr./Sra. ' + nombreApellido + ', su equipo ' + equipo + ' ha sido aceptado. Nos pondremos manos a la obra pronto y le notificaremos una vez que el problema haya sido resuelto con éxito. ¡Gracias por confiar en nosotros!';
+                        // actualiza solo la tarjeta 'Aceptado'
                         break;
                     case 'En Arreglo':
-                        id_mensaje.value = 'Estimado/a Sr./Sra. ' + nombreApellido + ', su equipo ' + equipo + ' está en proceso de reparación.';
+                        // actualiza solo la tarjeta 'En Arreglo'
                         break;
                     case 'Listo para retirar':
-                        id_mensaje.value = 'Estimado/a Sr./Sra. ' + nombreApellido + ', su equipo ' + equipo + ' está listo para ser retirado.';
+                        // actualiza solo la tarjeta 'Listo para retirar'
                         break;
                     case 'No se puede arreglar':
-                        id_mensaje.value = 'Estimado/a Sr./Sra. ' + nombreApellido + ', su equipo ' + equipo + ' ya fue atendido pero no pudimos resolver el problema.';
+                        // actualiza solo la tarjeta 'No se puede arreglar'
                         break;
-                    default:
-                        id_mensaje.value = 'Por favor, seleccione un estado válido.';
                 }
-            }).trigger('input');  // Dispara el evento 'input' manualmente
-        
-            // Resto del código...
+            }).trigger('input'); 
         });
-</script>
+        </script>
+        <script>
+            $(document).ready(function() {
+                $('#id_nombre_apellido, #id_equipo, #id_estado').on('input', function() {
+                    var id_mensaje = document.getElementById('id_mensaje');
+                    var nombreApellido = $('#id_nombre_apellido').val();
+                    var equipo = $('#id_equipo').val();
+                    var selectedValue = $('#id_estado').val();
+            
+                    switch (selectedValue) {
+                        case 'Aceptado':
+                            id_mensaje.value = 'Estimado/a Sr./Sra. ' + nombreApellido + ', su equipo ' + equipo + ' ha sido aceptado. Nos pondremos manos a la obra pronto y le notificaremos una vez que el problema haya sido resuelto con éxito. ¡Gracias por confiar en nosotros!';
+                            break;
+                        case 'En Arreglo':
+                            id_mensaje.value = 'Estimado/a Sr./Sra. ' + nombreApellido + ', le informamos que actualmente estamos trabajando en su equipo ' + equipo + ' para resolver el problema. Nuestro equipo está haciendo todo lo posible para garantizar que su dispositivo vuelva a funcionar como nuevo. Pronto le proporcionaremos más detalles y le notificaremos cuando esté listo para ser retirado en nuestras instalaciones. ¡Agradecemos su comprensión!';
+                            break;
+                        case 'Listo para retirar':
+                            id_mensaje.value = 'Estimado/a Sr./Sra. ' + nombreApellido + ', su equipo ' + equipo + ' ya fue atendido y el problema exitosamente fue resuelto, ya puede venir a retirar el equipo. Muchas gracias!';
+                            break;
+                        case 'No se puede arreglar':
+                            id_mensaje.value = 'Estimado/a Sr./Sra. ' + nombreApellido + ', lamentablemente no pudimos resolver el problema con su equipo ' + equipo + '. Puede pasar a retirar su equipo en nuestras instalaciones. Estamos disponibles para discutir opciones alternativas o brindar más información. ¡Agradecemos su comprensión!';
+                            break;
+                        default:
+                            id_mensaje.value = 'Por favor, seleccione un estado válido.';
+                    }
+                }).trigger('input'); 
+            });
+            </script>
+            <script>
+                $(document).ready(function() {
+                    $('#id_nombre_apellido, #id_equipo, #id_estado').on('input', function() {
+                        var id_mensaje = document.getElementById('id_mensaje').value;
+                        var id_telefono_contacto = $('#id_telefono_contacto').val().replace(/\D/g,''); // Elimina todos los caracteres no numéricos
+                
+                        // Codifica el mensaje para su uso en una URL
+                        var mensajeCodificado = encodeURIComponent(id_mensaje);
+                
+                        // Actualiza el enlace de WhatsApp
+                        $('#whatsapp-link').attr('href', 'https://wa.me/' + id_telefono_contacto + '?text=' + mensajeCodificado);
+                    }).trigger('input');
+                });
+                </script>
 {% endblock %}

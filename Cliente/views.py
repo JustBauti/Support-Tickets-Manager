@@ -14,10 +14,8 @@ class CodigoForm(View):
         form = FormCodigo(request.POST)
         if form.is_valid():
             codigo = form.cleaned_data.get('codigo')
-            print(codigo)
             try:
                 servicio = Servicio.objects.get(codigo=codigo)
-                print(servicio.get_data())
             except Servicio.DoesNotExist:
                 form.add_error('codigo', 'Código no encontrado, por favor vuelve a intentarlo.')
                 return render(request, 'home.html', {'formulario': form})
