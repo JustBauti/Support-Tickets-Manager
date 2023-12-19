@@ -6,8 +6,7 @@
 {% block extrastyle %}
     {{ block.super }}
     <link rel="stylesheet" href="{% static 'vendor/select2/css/select2.min.css' %}">
-
-    <link rel="stylesheet" href="{% static 'a.css' %}">
+    <link rel="stylesheet" href="{% static 'cliente.css' %}">
 {% endblock %}
 
 {% block extrahead %}
@@ -169,6 +168,9 @@
                                     </div>
                                     <div class="col">
                                         <strong>{{adminform.form.imei.label}}</strong><br>{{adminform.form.imei}} {{adminform.form.imei.errors}}
+                                    </div>
+                                    <div class="col">
+                                        <strong>{{adminform.form.modelo_equipo.label}}</strong><br>{{adminform.form.modelo_equipo}} {{adminform.form.modelo_equipo.errors}}
                                     </div>
                                   </div>
                                   <div class="form-row">
@@ -433,7 +435,7 @@
             </script>
             <script>
                 $(document).ready(function() {
-                    $('#id_nombre_apellido, #id_equipo, #id_estado').on('input', function() {
+                    $('#id_nombre_apellido, #id_equipo, #id_estado, #id_telefono_contacto').on('input change', function() {
                         var id_mensaje = document.getElementById('id_mensaje').value;
                         var id_telefono_contacto = $('#id_telefono_contacto').val().replace(/\D/g,''); // Elimina todos los caracteres no numéricos
                 

@@ -6,44 +6,134 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{% static 'home.css' %}">
     <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet'>
     <title>Bienvenido a Soporte Técnico 9 BITS</title>
     <style>
         body {
             font-family: 'Oswald';
-            }
+            margin: 0;
+            padding: 0;
+        }
         ul {
             list-style: none;
+        }
+        body {
+            font-family: 'Oswald';
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: linear-gradient(180deg, #a6ffff 0%, #a2edff 25%, #9dd5f2 50%, #96bed5 75%, #8ea8b9 100%);
+        }
+        
+        .container {
+            text-align: center;
+            padding: 15px;
+            background: white;
+            border-radius: 5px;
+        }
+        
+        h1, h2 {
+            color: #000000;
+        }
+        
+        p {
+            color: #000000;
+        }
+        
+        img {
+            width: 150px;
+            height: 150px;
+        }
+        
+        .myButton {
+            box-shadow:inset 0px -3px 7px 0px #29bbff;
+            background:linear-gradient(to bottom, #2dabf9 5%, #0688fa 100%);
+            background-color:#2dabf9;
+            border-radius:3px;
+            border:1px solid #0b0e07;
+            display:inline-block;
+            cursor:pointer;
+            color:#ffffff;
+            font-family:Arial;
+            font-size:15px;
+            padding:9px 23px;
+            text-decoration:none;
+            text-shadow:0px 1px 0px #263666;
+        }
+        
+        .myButton:hover {
+            background:linear-gradient(to bottom, #0688fa 5%, #2dabf9 100%);
+            background-color:#0688fa;
+        }
+        
+        .myButton:active {
+            position:relative;
+            top:1px;
+        }
+        /* Responsive adjustments */
+        @media screen and (max-width: 600px) {
+            .container {
+                width: 100%;
+            }
+
+            img {
+                width: 100px;
+                height: 100px;
+            }
+
+            .myButton {
+                font-size: 12px;
+                padding: 7px 20px;
+            }
+        }
+
+        @media screen and (min-width: 601px) and (max-width: 1024px) {
+            .container {
+                width: 80%;
+            }
+
+            img {
+                width: 130px;
+                height: 130px;
+            }
+
+            .myButton {
+                font-size: 14px;
+                padding: 8px 22px;
+            }
         }
     </style>
 </head>
 
-<body class="gradient-bg" style="background-color:">
+<body>
 
-    <div id="elemento"class="container bg-white text-center p-5 rounded my-5 mx-auto" style="max-width: 500px; box-shadow: 0 0 20px #00BFFF;">
-        <img src="https://9bits.com.ar/v31/wp-content/uploads/2022/09/cropped-12anos.jpg" alt="Mi Foto" class="rounded-img my-4">
-        <h1 class="text-dark">Soporte Técnico</h1>
-        <p class="text-dark">¡Hola! Somos 9 Bits, tus técnicos de confianza. Estamos aquí para ayudarte con cualquier problema que puedas tener. Con más de 12 años de experiencia, comprometidos a brindarte soluciones efectivas y un servicio de calidad.</p>
-        <br>
-        <h4 class="text-dark">Tu Servicio</h4>
-        <p>Introduce el código que te proporcionamos previamente para poder monitorear el estado de tu servicio y acceder a otros detalles relevantes.</p>
-        <form method="post" class="text-left">
-            {% csrf_token %}
-            <center>
-                <input type="text" name="codigo" value="" required>
-                {% if formulario.codigo.errors %}
-                    <div class="alert alert-danger mt-2" style="">
-                        {{ formulario.codigo.errors }}
-                    </div>
-                {% endif %}
-            </center>
+    <div class="gradient-bg d-flex align-items-center justify-content-center">
+        <div id="elemento" class="container bg-white text-center p-5 rounded my-5 mx-auto" style="max-width: 500px; box-shadow: 0 0 20px #00BFFF;">
+            <img src="https://9bits.com.ar/v31/wp-content/uploads/2022/09/cropped-12anos.jpg" alt="Mi Foto" class="rounded-img my-4">
+            <h1 class="text-dark">Soporte Técnico</h1>
+            <p class="text-dark">¡Hola! Somos 9 Bits, tus técnicos de confianza. Estamos aquí para ayudarte con cualquier problema que puedas tener. Con más de 12 años de experiencia, comprometidos a brindarte soluciones efectivas y un servicio de calidad.</p>
             <br>
-            <div class="inputbox text-center">
-                <input type="submit" value="Consultar" class="myButton">
-            </div>
-        </form>
+            <h4 class="text-dark">Tu Servicio</h4>
+            <p>Introduce el código que te proporcionamos previamente para poder monitorear el estado de tu servicio y acceder a otros detalles relevantes.</p>
+            <form method="post" class="text-left">
+                {% csrf_token %}
+                <center>
+                    <input type="text" name="codigo" value="" required>
+                    {% if formulario.codigo.errors %}
+                        <div class="alert alert-danger mt-2" style="">
+                            {{ formulario.codigo.errors }}
+                        </div>
+                    {% endif %}
+                </center>
+                <br>
+                <div class="inputbox text-center">
+                    <input type="submit" value="Consultar" class="myButton">
+                </div>
+            </form>
+        </div>
     </div>
 </body>
-
 </html>
