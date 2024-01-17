@@ -7,7 +7,8 @@ EstadoOpciones  = (
  ('En Arreglo','En Arreglo'),
  ('Listo para retirar','Listo para retirar'),
  ('Aceptado','Aceptado'),
- ('No se puede arreglar','No se puede arreglar')
+ ('No se puede arreglar','No se puede arreglar'),
+ ('ENTREGADO','ENTREGADO')
 )
 
 reparacionOpciones  = (

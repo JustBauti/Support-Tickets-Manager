@@ -284,6 +284,8 @@
                                     <h6>Patron en tiempo real</h6>
                                     <input id="dibujo_patron_input" name="{{ adminform.form.dibujo_patron.name }}" value="{{ adminform.form.dibujo_patron.value }}"></center>
                                 </div>
+                                <a href="#" id="generatePdf">Generar PDF</a>
+
                             {% endif %}
                                 
 
@@ -447,4 +449,33 @@
                     }).trigger('input');
                 });
                 </script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.70/pdfmake.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.70/vfs_fonts.js"></script>
+                <script>
+                    document.addEventListener('DOMContentLoaded', (event) => {
+                        document.getElementById('generatePdf').addEventListener('click', function(e) {
+                            e.preventDefault();
+                            
+                            var campo1 = document.getElementById('id_fecha_deja_prod').value;
+                            var campo2 = document.getElementById('id_equipo').value;
+                            // Agrega más campos si es necesario
+                    
+                            var docDefinition = {
+                              content: [
+                                { text: 'Campo 1: ' + campo1, style: 'header' },
+                                { text: 'Campo 2: ' + campo2, style: 'header' },
+                                // Agrega más campos aquí...
+                                
+                                { text: '\n\n\n\n' },  // Deja un espacio entre las dos copias de los datos
+                    
+                                { text: 'Campo 1: ' + campo1, style: 'header' },
+                                { text: 'Campo 2: ' + campo2, style: 'header' },
+                                // Agrega más campos aquí...
+                              ]
+                            };
+                    
+                            pdfMake.createPdf(docDefinition).open();
+                        });
+                    });
+                    </script>
 {% endblock %}

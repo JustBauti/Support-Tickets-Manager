@@ -2,8 +2,7 @@ from django import forms
 from django.contrib import admin
 from .models import Servicio, Tecnico
 from django.utils.html import format_html
-from django.db.models import Max
-
+from django.http import HttpResponseRedirect
 
 class ServiciosAdminForm(forms.ModelForm):
     fecha_deja_prod = forms.DateTimeField(
@@ -26,8 +25,49 @@ class ServiciosAdminForm(forms.ModelForm):
 @admin.register(Servicio)
 class Serviciosdate(admin.ModelAdmin):
     form = ServiciosAdminForm
+    actions = ['mostrar_todos', 'excluir_entregados']
     list_display = ("nombre_apellido", "estado_color", "fecha_entrada", "fecha_termina","codigo")
     search_fields = ("nombre_apellido__startswith","estado__startswith")
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        if 'excluir_entregados' in request.session:
+            qs = qs.exclude(estado='ENTREGADO')
+        return qs
+
+    # def mostrar_todos(self, request, queryset):
+    #     if 'excluir_entregados' in request.session:
+    #         del request.session['excluir_entregados']
+    #     self.message_user(request, "Ahora se muestran todos los objetos.")
+    #     return HttpResponseRedirect(request.get_full_path())
+    # mostrar_todos.short_description = "Mostrar todos los objetos"
+
+    # def excluir_entregados(self, request, queryset):
+    #     request.session['excluir_entregados'] = True
+    #     self.message_user(request, "Se excluyeron los objetos con estado 'ENTREGADO'.")
+    #     return HttpResponseRedirect(request.get_full_path())
+    # excluir_entregados.short_description = "Excluir objetos con estado 'ENTREGADO'"
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        if 'excluir_entregados' in request.session:
+            qs = qs.exclude(estado='ENTREGADO')
+        return qs
+
+    def mostrar_todos(self, request, queryset):
+        if 'excluir_entregados' in request.session:
+            del request.session['excluir_entregados']
+        self.message_user(request, "Ahora se muestran todos los objetos.")
+        return HttpResponseRedirect(request.get_full_path())
+    mostrar_todos.short_description = "Mostrar todos los objetos"
+    mostrar_todos.acts_on_all = True
+
+    def excluir_entregados(self, request, queryset):
+        request.session['excluir_entregados'] = True
+        self.message_user(request, "Se excluyeron los objetos con estado 'ENTREGADO'.")
+        return HttpResponseRedirect(request.get_full_path())
+    excluir_entregados.short_description = "Excluir objetos con estado 'ENTREGADO'"
+    excluir_entregados.acts_on_all = True   
 
     def estado_color(self, obj):
         colores = {
